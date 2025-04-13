@@ -1,63 +1,77 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import PropTypes from "prop-types";
+import { View, Text, Image, StyleSheet } from "react-native";
+
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   container: {
     padding: 15,
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white
   },
-  row: {
-    flexDirection: 'row',
-    marginBottom: 10,
+  topRow: {
+    flexDirection: "row",
+    marginBottom: 10
   },
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 5,
-    marginRight: 15,
+    marginRight: 15
   },
   info: {
-    flex: 1,
+    flex: 1
   },
   name: {
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontWeight: theme.fontWeights.bold,
+    fontSize: theme.fontSizes.subheading,
     marginBottom: 4,
+    color: theme.colors.textPrimary
   },
   description: {
-    color: '#555',
-    marginBottom: 6,
+    color: theme.colors.textSecondary,
+    marginBottom: 6
   },
   language: {
-    backgroundColor: '#0366d6',
-    alignSelf: 'flex-start',
-    color: 'white',
+    backgroundColor: theme.colors.primary,
+    alignSelf: "flex-start",
+    color: "white",
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 5,
-    overflow: 'hidden',
+    overflow: "hidden"
   },
   stats: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10
   },
   statItem: {
-    alignItems: 'center',
+    alignItems: "center"
   },
   statLabel: {
-    color: '#555',
-  },
+    color: theme.colors.textSecondary
+  }
 });
 
 const formatThousands = (value) =>
   value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value;
 
+const Stat = ({ value, label }) => (
+  <View style={styles.statItem}>
+    <Text style={{ fontWeight: theme.fontWeights.bold }}>{formatThousands(value)}</Text>
+    <Text style={styles.statLabel}>{label}</Text>
+  </View>
+);
+
+Stat.propTypes = {
+  value: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired
+};
+
 const RepositoryItem = ({ item }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
+      <View style={styles.topRow}>
         <Image source={{ uri: item.ownerAvatarUrl }} style={styles.avatar} />
         <View style={styles.info}>
           <Text style={styles.name}>{item.fullName}</Text>
@@ -66,22 +80,10 @@ const RepositoryItem = ({ item }) => {
         </View>
       </View>
       <View style={styles.stats}>
-        <View style={styles.statItem}>
-          <Text>{formatThousands(item.stargazersCount)}</Text>
-          <Text style={styles.statLabel}>Stars</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text>{formatThousands(item.forksCount)}</Text>
-          <Text style={styles.statLabel}>Forks</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text>{item.reviewCount}</Text>
-          <Text style={styles.statLabel}>Reviews</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text>{item.ratingAverage}</Text>
-          <Text style={styles.statLabel}>Rating</Text>
-        </View>
+        <Stat value={item.stargazersCount} label="Stars" />
+        <Stat value={item.forksCount} label="Forks" />
+        <Stat value={item.reviewCount} label="Reviews" />
+        <Stat value={item.ratingAverage} label="Rating" />
       </View>
     </View>
   );
