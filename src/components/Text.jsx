@@ -5,13 +5,13 @@ import theme from "../theme";
 
 const styles = StyleSheet.create({
   text: {
-    color: theme.colors.textPrimary,
+    color: theme.colors.primary,
     fontSize: theme.fontSizes.body,
     fontFamily: theme.fonts.main,
     fontWeight: theme.fontWeights.normal
   },
   colorTextSecondary: {
-    color: theme.colors.textSecondary
+    color: theme.colors.secondary
   },
   colorPrimary: {
     color: theme.colors.primary

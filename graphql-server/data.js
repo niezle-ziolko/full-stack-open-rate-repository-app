@@ -1,13 +1,3 @@
-import { FlatList, View, StyleSheet } from "react-native";
-
-import RepositoryItem from "./RepositoryItem";
-
-const styles = StyleSheet.create({
-  separator: {
-    height: 10
-  }
-});
-
 const repositories = [
   {
     id: "jaredpalmer.formik",
@@ -18,7 +8,7 @@ const repositories = [
     stargazersCount: 21553,
     ratingAverage: 88,
     reviewCount: 4,
-    ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/4060187?v=4",
+    ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/4060187?v=4"
   },
   {
     id: "rails.rails",
@@ -29,7 +19,7 @@ const repositories = [
     stargazersCount: 45377,
     ratingAverage: 100,
     reviewCount: 2,
-    ownerAvatarUrl: "https://avatars1.githubusercontent.com/u/4223?v=4",
+    ownerAvatarUrl: "https://avatars1.githubusercontent.com/u/4223?v=4"
   },
   {
     id: "django.django",
@@ -40,7 +30,7 @@ const repositories = [
     stargazersCount: 48496,
     ratingAverage: 73,
     reviewCount: 5,
-    ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/27804?v=4",
+    ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/27804?v=4"
   },
   {
     id: "reduxjs.redux",
@@ -51,21 +41,16 @@ const repositories = [
     stargazersCount: 52869,
     ratingAverage: 0,
     reviewCount: 0,
-    ownerAvatarUrl: "https://avatars3.githubusercontent.com/u/13142323?v=4",
-  },
+    ownerAvatarUrl: "https://avatars3.githubusercontent.com/u/13142323?v=4"
+  }
 ];
 
-const ItemSeparator = () => <View style={styles.separator} />;
+const users = [
+  {
+    id: "1",
+    username: "test",
+    password: "12345"
+  }
+];
 
-const RepositoryList = () => {
-  return (
-    <FlatList
-      data={repositories}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <RepositoryItem item={item} />}
-      keyExtractor={(item) => item.id}
-    />
-  );
-};
-
-export default RepositoryList;
+export default { repositories, users };

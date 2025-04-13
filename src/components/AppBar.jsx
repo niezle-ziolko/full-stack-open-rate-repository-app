@@ -1,26 +1,27 @@
+import Constants from "expo-constants";
 import { Link } from "react-router-native";
 import { View, StyleSheet, ScrollView } from "react-native";
 
-import Constants from "expo-constants";
 import Text from "./Text";
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   container: {
     padding: Constants.statusBarHeight + 15,
-    backgroundColor: "#24292e",
-    flexDirection: "row"
+    backgroundColor: theme.colors.primary,
+    flexDirection: theme.flexDirection.row
   },
   scrollContainer: {
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: theme.flexDirection.row,
+    alignItems: theme.align.center
   },
   tab: {
     paddingHorizontal: 16,
     paddingVertical: 8
   },
   text: {
-    color: "white",
-    fontWeight: "bold"
+    color: theme.colors.white,
+    fontWeight: theme.fontWeights.bold
   }
 });
 

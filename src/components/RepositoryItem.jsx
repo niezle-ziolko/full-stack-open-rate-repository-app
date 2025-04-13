@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white
   },
   topRow: {
-    flexDirection: "row",
+    flexDirection: theme.flexDirection.row,
     marginBottom: 10
   },
   avatar: {
@@ -25,31 +25,32 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeights.bold,
     fontSize: theme.fontSizes.subheading,
     marginBottom: 4,
-    color: theme.colors.textPrimary
+    color: theme.colors.primary
   },
   description: {
-    color: theme.colors.textSecondary,
+    color: theme.colors.secondary,
     marginBottom: 6
   },
   language: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.blue,
+    fontWeight: theme.fontWeights.bold,
     alignSelf: "flex-start",
-    color: "white",
+    color: theme.colors.white,
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 5,
     overflow: "hidden"
   },
   stats: {
-    flexDirection: "row",
+    flexDirection: theme.flexDirection.row,
     justifyContent: "space-around",
     marginTop: 10
   },
   statItem: {
-    alignItems: "center"
+    alignItems: theme.align.center
   },
   statLabel: {
-    color: theme.colors.textSecondary
+    color: theme.colors.secondary
   }
 });
 
