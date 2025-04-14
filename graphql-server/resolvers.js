@@ -9,7 +9,15 @@ const resolvers = {
   Query: {
     repositories: () => ({
       edges: data.repositories.map((repo) => ({ node: repo }))
-    })
+    }),
+
+    repository: (_, { id }) => {
+      return data.repositories.find(repo => repo.id === id) || null;
+    },
+
+    me: (_, __, context) => {
+      return context.currentUser;
+    }
   },
   Mutation: {
     authenticate: async (_, { credentials }) => {

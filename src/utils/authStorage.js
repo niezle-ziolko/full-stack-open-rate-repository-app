@@ -10,7 +10,7 @@ class AuthStorage {
       const token = await AsyncStorage.getItem(`${this.namespace}:token`);
       return token;
     } catch (e) {
-      console.error("Błąd odczytu access token:", e);
+      console.error("Token error:", e);
       return null;
     };
   };
@@ -19,7 +19,7 @@ class AuthStorage {
     try {
       await AsyncStorage.setItem(`${this.namespace}:token`, accessToken);
     } catch (e) {
-      console.error("Błąd zapisu access token:", e);
+      console.error("Token error:", e);
     };
   };
 
@@ -27,7 +27,7 @@ class AuthStorage {
     try {
       await AsyncStorage.removeItem(`${this.namespace}:token`);
     } catch (e) {
-      console.error("Błąd usuwania access token:", e);
+      console.error("Token error:", e);
     };
   };
 };

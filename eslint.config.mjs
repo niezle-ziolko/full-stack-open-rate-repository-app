@@ -9,7 +9,10 @@ export default defineConfig([
     plugins: { js, react: pluginReact },
     extends: ["js/recommended", pluginReact.configs.flat.recommended],
     languageOptions: {
-      globals: globals.browser
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
     },
     settings: {
       react: {

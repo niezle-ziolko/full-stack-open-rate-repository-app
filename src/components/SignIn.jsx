@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { Formik } from "formik";
+import { useNavigate } from "react-router-native";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
 import Text from "./Text";
@@ -26,15 +27,16 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: theme.colors.blue,
-    padding: 14,
-    borderRadius: 4,
+    padding: 12,
+    borderRadius: 5,
     alignItems: theme.align.center,
+    marginTop: 15
   },
   buttonText: {
     color: theme.colors.white,
     fontWeight: theme.fontWeights.bold,
     textTransform: theme.display.none,
-    fontSize: 16,
+    fontSize: 15
   },
   errorInput: {
     borderColor: theme.colors.red
@@ -52,6 +54,7 @@ const SignIn = () => {
     password: "",
   };
 
+  const navigate = useNavigate(); 
   const [signIn] = useSignIn();
 
   const onSubmit = async (values) => {
@@ -59,9 +62,10 @@ const SignIn = () => {
 
     try {
       const { data } = await signIn({ username, password });
-      console.log("Wynik mutacji:", data);
+      console.log("Mutation result:", data);
+      navigate("/");
     } catch (e) {
-      console.error("Błąd logowania:", e);
+      console.error("Mutation error:", e);
     };
   };
 

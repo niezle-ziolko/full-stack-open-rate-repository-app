@@ -11,6 +11,7 @@ const typeDefs = gql`
     ratingAverage: Int
     reviewCount: Int
     ownerAvatarUrl: String
+    url: String
   }
 
   type RepositoryEdge {
@@ -21,8 +22,15 @@ const typeDefs = gql`
     edges: [RepositoryEdge!]!
   }
 
+  type User {
+    id: ID!
+    username: String!
+  }
+
   type Query {
     repositories: RepositoryConnection!
+    repository(id: ID!): Repository
+    me: User
   }
 
   input AuthenticateInput {

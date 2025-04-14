@@ -4,6 +4,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import { ApolloServer } from "apollo-server-express";
 
+import data from "./data.js";
 import typeDefs from "./schema.js";
 import resolvers from "./resolvers.js";
 
@@ -18,17 +19,18 @@ const server = new ApolloServer({
   context: ({ req }) => {
     const authHeader = req.headers.authorization || "";
     const token = authHeader.replace("Bearer ", "");
-    let user = null;
-    
+    let currentUser = null;
+
     if (token) {
       try {
-        user = jwt.verify(token, process.env.JWT_SECRET);
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        currentUser = data.users.find(u => u.id === decodedToken.userId);
       } catch (e) {
         console.error("Token error:", e);
       };
     };
 
-    return { user };
+    return { currentUser };
   }
 });
 
