@@ -16,6 +16,7 @@
     "@expo/metro-runtime": "~4.0.1",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@testing-library/react-native": "^13.2.0",
+    "bcrypt": "^5.1.1",
     "date-fns": "^4.1.0",
     "dotenv": "^16.5.0",
     "expo": "~52.0.43",
@@ -36,7 +37,8 @@
     "eslint": "^9.24.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-native": "^5.0.0",
-    "globals": "^16.0.0"
+    "globals": "^16.0.0",
+    "react-test-renderer": "^18.3.1"
   },
   "private": true
 }

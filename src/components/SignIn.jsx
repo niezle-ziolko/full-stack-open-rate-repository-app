@@ -46,7 +46,7 @@ const SignIn = () => {
         handleBlur,
         values,
         errors,
-        touched,
+        touched
       }) => (
         <View style={styles.form}>
           <TextInput
@@ -57,7 +57,7 @@ const SignIn = () => {
             onBlur={handleBlur("username")}
             style={[
               styles.input,
-              touched.username && errors.username && styles.errorInput,
+              touched.username && errors.username && styles.errorInput
             ]}
           />
           {touched.username && errors.username && (

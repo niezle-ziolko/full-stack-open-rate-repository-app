@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { Text as NativeText } from "react-native";
 
-import theme from "../utils/theme";
 import styles from "../utils/styles";
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {

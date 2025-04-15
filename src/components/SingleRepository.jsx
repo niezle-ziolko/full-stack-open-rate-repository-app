@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-native";
-import { View, ActivityIndicator, FlatList, StyleSheet, Text } from "react-native";
+import { View, ActivityIndicator, FlatList, Text } from "react-native";
 
 import theme from "../utils/theme";
 import styles from "../utils/styles";
@@ -16,7 +16,7 @@ const SingleRepository = () => {
     fetchPolicy: "cache-and-network"
   });
 
-  if (loading) return <ActivityIndicator size="large" color={theme.colors.blue} />;
+  if (loading) return <ActivityIndicator style={styles.indicator} size="large" color={theme.colors.blue} />;
   if (error) return <Text>Error: {error.message}</Text>;
 
   const repository = data.repository;
@@ -29,7 +29,7 @@ const SingleRepository = () => {
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => (
-        <View style={styles.gap}>
+        <View style={styles.separator}>
           <RepositoryItem item={repository} showGithubButton />
         </View>
       )}

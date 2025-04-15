@@ -60,8 +60,31 @@ const typeDefs = gql`
     accessToken: String!
   }
 
+  input CreateReviewInput {
+    ownerName: String!
+    repositoryName: String!
+    rating: Int!
+    text: String
+  }
+
+  type CreateReviewPayload {
+    repositoryId: ID!
+  }
+
+  input CreateUserInput {
+    username: String!
+    password: String!
+  }
+
+  type CreateUserPayload {
+    id: ID!
+    username: String!
+  }
+
   type Mutation {
     authenticate(credentials: AuthenticateInput!): AuthenticationPayload
+    createReview(review: CreateReviewInput!): CreateReviewPayload
+    createUser(user: CreateUserInput!): CreateUserPayload
   }
 `;
 

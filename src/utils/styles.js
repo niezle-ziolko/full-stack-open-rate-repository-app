@@ -5,7 +5,8 @@ import theme from "./theme";
 const styles = StyleSheet.create({
   container: {
     padding: theme.numbers.fiveTeen,
-    backgroundColor: theme.colors.white
+    backgroundColor: theme.colors.white,
+    gap: theme.numbers.ten
   },
   box: {
     flexDirection: theme.flexDirection.row,
@@ -150,8 +151,11 @@ const styles = StyleSheet.create({
     marginTop: -8,
     marginLeft: 8
   },
-  gap: {
+  separator: {
     marginBottom: theme.numbers.ten
+  },
+  indicator: {
+    marginTop: theme.numbers.ten
   }
 });
 
