@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import { NativeRouter } from 'react-router-native';
 import { ApolloProvider } from '@apollo/client';
 
-import theme from './src/theme';
+import theme from './src/utils/theme';
 import Main from './src/components/Main';
 import createApolloClient from './src/client';
 
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: theme.colors.background,
-  },
+  }
 });
 
 export default App;

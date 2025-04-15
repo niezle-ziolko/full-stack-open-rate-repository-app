@@ -12,6 +12,7 @@ const typeDefs = gql`
     reviewCount: Int
     ownerAvatarUrl: String
     url: String
+    reviews: ReviewConnection!
   }
 
   type RepositoryEdge {
@@ -20,6 +21,23 @@ const typeDefs = gql`
 
   type RepositoryConnection {
     edges: [RepositoryEdge!]!
+  }
+
+  type Review {
+    id: ID!
+    text: String!
+    rating: Int!
+    createdAt: String!
+    user: User!
+    repository: Repository!
+  }
+
+  type ReviewEdge {
+    node: Review!
+  }
+
+  type ReviewConnection {
+    edges: [ReviewEdge!]!
   }
 
   type User {

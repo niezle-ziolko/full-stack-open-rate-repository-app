@@ -19,6 +19,23 @@ const resolvers = {
       return context.currentUser;
     }
   },
+
+  Repository: {
+    reviews: (parent) => {
+      const repoId = parent.id;
+      const repoReviews = data.reviews
+        .filter((review) => review.repositoryId === repoId)
+        .map((review) => ({ node: review }));
+
+      return { edges: repoReviews };
+    }
+  },
+
+  Review: {
+    user: (parent) => data.users.find(u => u.id === parent.userId),
+    repository: (parent) => data.repositories.find(r => r.id === parent.repositoryId)
+  },
+
   Mutation: {
     authenticate: async (_, { credentials }) => {
       const { username, password } = credentials;

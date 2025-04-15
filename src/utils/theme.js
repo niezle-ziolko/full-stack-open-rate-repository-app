@@ -33,6 +33,12 @@ const theme = {
   },
   display: {
     none: "none"
+  },
+  numbers: {
+    five: 5,
+    ten: 10,
+    fiveTeen: 15,
+    fifty: 50
   }
 };
 

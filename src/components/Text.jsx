@@ -1,37 +1,17 @@
 import PropTypes from "prop-types";
-import { Text as NativeText, StyleSheet } from "react-native";
+import { Text as NativeText } from "react-native";
 
-import theme from "../theme";
-
-const styles = StyleSheet.create({
-  text: {
-    color: theme.colors.primary,
-    fontSize: theme.fontSizes.body,
-    fontFamily: theme.fonts.main,
-    fontWeight: theme.fontWeights.normal
-  },
-  colorTextSecondary: {
-    color: theme.colors.secondary
-  },
-  colorPrimary: {
-    color: theme.colors.primary
-  },
-  fontSizeSubheading: {
-    fontSize: theme.fontSizes.subheading
-  },
-  fontWeightBold: {
-    fontWeight: theme.fontWeights.bold
-  },
-});
+import theme from "../utils/theme";
+import styles from "../utils/styles";
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
   const textStyle = [
     styles.text,
-    color === "textSecondary" && styles.colorTextSecondary,
     color === "primary" && styles.colorPrimary,
+    color === "secondary" && styles.colorTextSecondary,
     fontSize === "subheading" && styles.fontSizeSubheading,
     fontWeight === "bold" && styles.fontWeightBold,
-    style,
+    style
   ];
 
   return <NativeText style={textStyle} {...props} />;

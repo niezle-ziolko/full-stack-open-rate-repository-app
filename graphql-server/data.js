@@ -7,7 +7,7 @@ const repositories = [
     forksCount: 1589,
     stargazersCount: 21553,
     ratingAverage: 88,
-    reviewCount: 4,
+    reviewCount: 2,
     ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/4060187?v=4",
     url: "https://github.com/jaredpalmer/formik"
   },
@@ -31,7 +31,7 @@ const repositories = [
     forksCount: 21015,
     stargazersCount: 48496,
     ratingAverage: 73,
-    reviewCount: 5,
+    reviewCount: 1,
     ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/27804?v=4",
     url: "https://github.com/django/django"
   },
@@ -54,7 +54,60 @@ const users = [
     id: "1",
     username: "test",
     password: "12345"
+  },
+  {
+    id: "2",
+    username: "john doe",
+    password: "password"
+  },
+  {
+    id: "3",
+    username: "jane doe",
+    password: "password1"
   }
 ];
 
-export default { repositories, users };
+const reviews = [
+  {
+    id: "r1",
+    text: "Formik makes working with forms very easy!",
+    rating: 90,
+    createdAt: "2024-04-01T10:00:00Z",
+    userId: "3",
+    repositoryId: "jaredpalmer.formik"
+  },
+  {
+    id: "r2",
+    text: "Great documentation and API.",
+    rating: 85,
+    createdAt: "2024-04-02T11:00:00Z",
+    userId: "2",
+    repositoryId: "jaredpalmer.formik"
+  },
+  {
+    id: "r3",
+    text: "Rails is a classic - nothing to add, nothing to take away.",
+    rating: 100,
+    createdAt: "2024-04-03T12:00:00Z",
+    userId: "3",
+    repositoryId: "rails.rails"
+  },
+  {
+    id: "r4",
+    text: "A bit old-fashioned, but still great.",
+    rating: 95,
+    createdAt: "2024-04-04T13:00:00Z",
+    userId: "2",
+    repositoryId: "rails.rails"
+  },
+  {
+    id: "r5",
+    text: "Django allows you to quickly build robust applications.",
+    rating: 80,
+    createdAt: "2024-04-05T14:00:00Z",
+    userId: "2",
+    repositoryId: "django.django"
+  }
+];
+
+export default { repositories, users, reviews };

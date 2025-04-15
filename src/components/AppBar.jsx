@@ -1,49 +1,28 @@
-import Constants from "expo-constants";
 import { useQuery } from '@apollo/client';
 import { Link } from "react-router-native";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 
 import Text from "./Text";
-import theme from "../theme";
+import styles from "../utils/styles";
 import SignOutTab from "./SignOutTab";
 import { GET_AUTHORIZED_USER } from '../graphql/queries';
-
-const styles = StyleSheet.create({
-  container: {
-    padding: Constants.statusBarHeight + 15,
-    backgroundColor: theme.colors.primary,
-    flexDirection: theme.flexDirection.row
-  },
-  scrollContainer: {
-    flexDirection: theme.flexDirection.row,
-    alignItems: theme.align.center
-  },
-  tab: {
-    paddingHorizontal: 16,
-    paddingVertical: 8
-  },
-  text: {
-    color: theme.colors.white,
-    fontWeight: theme.fontWeights.bold
-  }
-});
 
 const AppBar = () => {
   const { data } = useQuery(GET_AUTHORIZED_USER);
   const authorizedUser = data?.me;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.header}>
       <ScrollView horizontal contentContainerStyle={styles.scrollContainer} showsHorizontalScrollIndicator={true}>
         <Link to="/" style={styles.tab}>
-          <Text style={styles.text}>Repositories</Text>
+          <Text style={styles.headerText}>Repositories</Text>
         </Link>
 
         {authorizedUser ? (
           <SignOutTab styles={styles} />
         ) : (
           <Link to="/signin" style={styles.tab}>
-            <Text style={styles.text}>Sign in</Text>
+            <Text style={styles.headerText}>Sign in</Text>
           </Link>
         )}
       </ScrollView>
