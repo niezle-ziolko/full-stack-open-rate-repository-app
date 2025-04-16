@@ -1,6 +1,15 @@
 import { gql } from "apollo-server-express";
 
 const typeDefs = gql`
+  enum AllRepositoriesOrderBy {
+    RATING_AVERAGE
+  }
+
+  enum OrderDirection {
+    ASC
+    DESC
+  }
+
   type Repository {
     id: ID!
     fullName: String!
@@ -46,7 +55,10 @@ const typeDefs = gql`
   }
 
   type Query {
-    repositories: RepositoryConnection!
+    repositories(
+      orderBy: AllRepositoriesOrderBy = RATING_AVERAGE
+      orderDirection: OrderDirection = DESC
+    ): RepositoryConnection!
     repository(id: ID!): Repository
     me: User
   }

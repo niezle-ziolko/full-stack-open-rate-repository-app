@@ -19,18 +19,32 @@ dotenv.config();
 
 const resolvers = {
   Query: {
-    repositories: () => ({
-      edges: data.repositories.map((repo) => ({ node: repo }))
-    }),
-
-    repository: (_, { id }) => {
-      return data.repositories.find(repo => repo.id === id) || null;
+    repositories: (_, args) => {
+      const { orderBy = "RATING_AVERAGE", orderDirection = "DESC" } = args;
+  
+      let sortedRepositories = [...data.repositories];
+  
+      if (orderBy === "RATING_AVERAGE") {
+        sortedRepositories.sort((a, b) => {
+          return orderDirection === "ASC"
+            ? a.ratingAverage - b.ratingAverage
+            : b.ratingAverage - a.ratingAverage;
+        });
+      }
+  
+      return {
+        edges: sortedRepositories.map((repo) => ({ node: repo })),
+      };
     },
-
+  
+    repository: (_, { id }) => {
+      return data.repositories.find((repo) => repo.id === id) || null;
+    },
+  
     me: (_, __, context) => {
       return context.currentUser;
-    }
-  },
+    },
+  },  
 
   Repository: {
     reviews: (parent) => {
