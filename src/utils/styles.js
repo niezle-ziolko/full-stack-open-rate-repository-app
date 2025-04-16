@@ -156,6 +156,14 @@ const styles = StyleSheet.create({
   },
   indicator: {
     marginTop: theme.numbers.ten
+  },
+  picker: {
+    height: 35,
+    padding: 5,
+    borderWidth: 1,
+    borderColor: theme.colors.grey,
+    borderStyle: 'solid',
+    borderRadius: 5
   }
 });
 

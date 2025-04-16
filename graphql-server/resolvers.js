@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
-import bcrypt from "bcrypt";
 
 import data from "./data.js";
 
@@ -13,6 +13,13 @@ function saveData() {
   const jsonContent = JSON.stringify(data, null, 2);
   const jsContent = `const data = ${jsonContent};\n\nexport default data;\n`;
   fs.writeFileSync(dataPath, jsContent, "utf-8");
+}
+
+function normalizeDateString(dateStr) {
+  const [date, time] = dateStr.split('T');
+  const [year, month, day] = date.split('-');
+  const normalizedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${time}`;
+  return normalizedDate;
 }
 
 dotenv.config();
@@ -25,24 +32,25 @@ const resolvers = {
       let sortedRepositories = [...data.repositories];
   
       if (orderBy === "RATING_AVERAGE") {
-        sortedRepositories.sort((a, b) => {
-          return orderDirection === "ASC"
+        sortedRepositories.sort((a, b) =>
+          orderDirection === "ASC"
             ? a.ratingAverage - b.ratingAverage
-            : b.ratingAverage - a.ratingAverage;
+            : b.ratingAverage - a.ratingAverage
+        );
+      } else if (orderBy === "CREATED_AT") {
+        sortedRepositories.sort((a, b) => {
+          const dateA = new Date(normalizeDateString(a.createdAt));
+          const dateB = new Date(normalizeDateString(b.createdAt));
+        
+          return orderDirection === "ASC"
+            ? dateA.getTime() - dateB.getTime()
+            : dateB.getTime() - dateA.getTime();
         });
       }
   
       return {
         edges: sortedRepositories.map((repo) => ({ node: repo })),
       };
-    },
-  
-    repository: (_, { id }) => {
-      return data.repositories.find((repo) => repo.id === id) || null;
-    },
-  
-    me: (_, __, context) => {
-      return context.currentUser;
     },
   },  
 
@@ -103,20 +111,7 @@ const resolvers = {
       );
 
       if (!repository) {
-        repository = {
-          id: uuid(),
-          fullName: `${ownerName}/${repositoryName}`,
-          description: "",
-          language: "",
-          forksCount: 0,
-          stargazersCount: 0,
-          ratingAverage: 0,
-          reviewCount: 0,
-          ownerAvatarUrl: "",
-          url: "",
-        };
-
-        data.repositories.push(repository);
+        throw new Error(`Repository ${ownerName}/${repositoryName} not found`);
       }
 
       const newReview = {

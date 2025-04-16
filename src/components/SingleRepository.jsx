@@ -20,7 +20,7 @@ const SingleRepository = () => {
   if (error) return <Text>Error: {error.message}</Text>;
 
   const repository = data.repository;
-  const reviews = repository.reviews.edges.map(edge => edge.node);
+  const reviews = repository.reviews?.edges.map(edge => edge.node);
 
   return (
     <FlatList

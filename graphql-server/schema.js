@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 const typeDefs = gql`
   enum AllRepositoriesOrderBy {
     RATING_AVERAGE
+    CREATED_AT
   }
 
   enum OrderDirection {
@@ -20,6 +21,7 @@ const typeDefs = gql`
     ratingAverage: Int
     reviewCount: Int
     ownerAvatarUrl: String
+    createdAt: String
     url: String
     reviews: ReviewConnection!
   }

@@ -9,6 +9,7 @@ const data = {
       "stargazersCount": 21553,
       "ratingAverage": 88,
       "reviewCount": 2,
+      "createdAt": "2024-10-9T11:18:08.448Z",
       "ownerAvatarUrl": "https://avatars2.githubusercontent.com/u/4060187?v=4",
       "url": "https://github.com/jaredpalmer/formik"
     },
@@ -21,6 +22,7 @@ const data = {
       "stargazersCount": 45377,
       "ratingAverage": 100,
       "reviewCount": 2,
+      "createdAt": "2025-04-15T17:00:00.448Z",
       "ownerAvatarUrl": "https://avatars1.githubusercontent.com/u/4223?v=4",
       "url": "https://github.com/rails/rails"
     },
@@ -33,6 +35,7 @@ const data = {
       "stargazersCount": 48496,
       "ratingAverage": 73,
       "reviewCount": 1,
+      "createdAt": "2025-04-16T11:13:00.448Z",
       "ownerAvatarUrl": "https://avatars2.githubusercontent.com/u/27804?v=4",
       "url": "https://github.com/django/django"
     },
@@ -45,6 +48,7 @@ const data = {
       "stargazersCount": 52869,
       "ratingAverage": 100,
       "reviewCount": 1,
+      "createdAt": "2025-04-5T21:18:08.448Z",
       "ownerAvatarUrl": "https://avatars3.githubusercontent.com/u/13142323?v=4",
       "url": "https://github.com/reduxjs/redux"
     }
