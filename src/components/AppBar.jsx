@@ -1,11 +1,11 @@
-import { useQuery } from '@apollo/client';
+import { useQuery } from "@apollo/client";
 import { Link } from "react-router-native";
 import { View, ScrollView } from "react-native";
 
 import Text from "./Text";
-import styles from "../utils/styles";
 import SignOut from "./SignOut";
-import { GET_AUTHORIZED_USER } from '../graphql/queries';
+import styles from "../utils/styles";
+import { GET_AUTHORIZED_USER } from "../graphql/queries";
 
 const AppBar = () => {
   const { data } = useQuery(GET_AUTHORIZED_USER);

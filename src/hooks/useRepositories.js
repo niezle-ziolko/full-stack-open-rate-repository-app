@@ -11,7 +11,7 @@ const useRepositories = ({ orderBy, orderDirection, searchKeyword = "" }) => {
   if (error) {
     console.error("Error fetching repositories:", error.message);
     return { repositories: [], loading: false, error };
-  }
+  };
 
   const repositories = data?.repositories?.edges?.map(edge => edge.node) ?? [];
 

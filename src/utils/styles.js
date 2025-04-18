@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
     textTransform: theme.display.none,
     fontWeight: theme.fontWeights.bold
   },
+  buttonDelete: {
+    backgroundColor: theme.colors.red
+  },
   stats: {
     marginTop: theme.numbers.ten,
     justifyContent: "space-around",
@@ -177,6 +180,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: theme.colors.grey,
     backgroundColor: theme.colors.white
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10
+  },
+  buttonContainer: {
+    flex: 1,
+    marginHorizontal: 5
+  },
+  noReviews: {
+    marginTop: 8,
+    marginLeft: 8,
+    color: theme.colors.primary
   }
 });
 

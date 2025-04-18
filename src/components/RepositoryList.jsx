@@ -39,8 +39,8 @@ export class RepositoryListContainer extends Component {
         ListHeaderComponent={this.renderHeader}
       />
     );
-  }
-}
+  };
+};
 
 const RepositoryList = () => {
   const navigate = useNavigate();

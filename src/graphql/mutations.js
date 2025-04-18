@@ -17,7 +17,7 @@ export const CREATE_REVIEW = gql`
 `;
 
 export const DELETE_REVIEW = gql`
-  mutation deleteReview($id: ID!) {
+  mutation DeleteReview($id: ID!) {
     deleteReview(id: $id)
   }
 `;

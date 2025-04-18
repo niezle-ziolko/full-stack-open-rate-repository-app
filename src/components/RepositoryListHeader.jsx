@@ -1,3 +1,5 @@
+import React from "react";
+import PropTypes from "prop-types";
 import { View, TextInput } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
@@ -35,6 +37,13 @@ const RepositoryListHeader = ({
       </View>
     </View>
   );
+};
+
+RepositoryListHeader.propTypes = {
+  selectedOrder: PropTypes.string.isRequired,
+  setSelectedOrder: PropTypes.func.isRequired,
+  searchKeyword: PropTypes.string.isRequired,
+  setSearchKeyword: PropTypes.func.isRequired,
 };
 
 export default RepositoryListHeader;

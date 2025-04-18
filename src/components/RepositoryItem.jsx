@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
 
 import theme from "../utils/theme";
 import styles from "../utils/styles";

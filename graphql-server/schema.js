@@ -23,15 +23,17 @@ const typeDefs = gql`
     ownerAvatarUrl: String
     createdAt: String
     url: String
-    reviews: ReviewConnection!
+    reviews(first: Int, after: String): ReviewConnection!
   }
 
   type RepositoryEdge {
     node: Repository!
+    cursor: String!
   }
 
   type RepositoryConnection {
     edges: [RepositoryEdge!]!
+    pageInfo: PageInfo!
   }
 
   type Review {
@@ -45,10 +47,18 @@ const typeDefs = gql`
 
   type ReviewEdge {
     node: Review!
+    cursor: String!
   }
 
   type ReviewConnection {
     edges: [ReviewEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  type PageInfo {
+    startCursor: String
+    endCursor: String
+    hasNextPage: Boolean!
   }
 
   type User {

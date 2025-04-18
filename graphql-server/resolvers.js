@@ -13,14 +13,14 @@ function saveData() {
   const jsonContent = JSON.stringify(data, null, 2);
   const jsContent = `const data = ${jsonContent};\n\nexport default data;\n`;
   fs.writeFileSync(dataPath, jsContent, "utf-8");
-}
+};
 
 function normalizeDateString(dateStr) {
-  const [date, time] = dateStr.split('T');
-  const [year, month, day] = date.split('-');
-  const normalizedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${time}`;
+  const [date, time] = dateStr.split("T");
+  const [year, month, day] = date.split("-");
+  const normalizedDate = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${time}`;
   return normalizedDate;
-}
+};
 
 dotenv.config();
 
@@ -30,7 +30,7 @@ const resolvers = {
       const {
         orderBy = "RATING_AVERAGE",
         orderDirection = "DESC",
-        searchKeyword,
+        searchKeyword
       } = args;
   
       let filteredRepositories = [...data.repositories];
@@ -40,7 +40,7 @@ const resolvers = {
         filteredRepositories = filteredRepositories.filter((repo) =>
           repo.fullName.toLowerCase().includes(keyword)
         );
-      }
+      };
   
       if (orderBy === "RATING_AVERAGE") {
         filteredRepositories.sort((a, b) =>
@@ -57,11 +57,20 @@ const resolvers = {
             ? dateA.getTime() - dateB.getTime()
             : dateB.getTime() - dateA.getTime();
         });
-      }
+      };
   
       return {
         edges: filteredRepositories.map((repo) => ({ node: repo })),
       };
+    },
+
+    repository: (_, { id }) => {
+      const repository = data.repositories.find(r => r.id === id);
+      if (!repository) {
+        throw new Error("Repository not found");
+      };
+  
+      return repository;
     },
 
     me: (_, __, context) => {
@@ -81,13 +90,26 @@ const resolvers = {
   },
 
   Repository: {
-    reviews: (parent) => {
-      const repoId = parent.id;
-      const repoReviews = data.reviews
-        .filter((review) => review.repositoryId === repoId)
-        .map((review) => ({ node: review }));
-
-      return { edges: repoReviews };
+    reviews: (parent, { first = 2, after }, context) => {
+      const allReviews = data.reviews.filter(r => r.repositoryId === parent.id);
+      const startIndex = after ? allReviews.findIndex(r => r.id === after) + 1 : 0;
+  
+      const reviewsToReturn = allReviews.slice(startIndex, startIndex + first);
+      const hasNextPage = startIndex + first < allReviews.length;
+      const endCursor = reviewsToReturn.length > 0 ? reviewsToReturn[reviewsToReturn.length - 1].id : null;
+      const startCursor = reviewsToReturn.length > 0 ? reviewsToReturn[0].id : null;
+  
+      return {
+        edges: reviewsToReturn.map((review) => ({
+          node: review,
+          cursor: review.id,
+        })),
+        pageInfo: {
+          startCursor,
+          endCursor,
+          hasNextPage
+        }
+      };
     }
   },
 
@@ -103,13 +125,13 @@ const resolvers = {
 
       if (!user) {
         throw new Error("Incorrect credentials");
-      }
+      };
 
       const passwordCorrect = await bcrypt.compare(password, user.password);
 
       if (!passwordCorrect) {
         throw new Error("Incorrect credentials");
-      }
+      };
 
       const accessToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
         expiresIn: "1h"
@@ -123,7 +145,7 @@ const resolvers = {
 
       if (!currentUser) {
         throw new Error("Not authenticated");
-      }
+      };
 
       const {
         ownerName,
@@ -138,7 +160,7 @@ const resolvers = {
 
       if (!repository) {
         throw new Error(`Repository ${ownerName}/${repositoryName} not found`);
-      }
+      };
 
       const newReview = {
         id: uuid(),
@@ -170,30 +192,30 @@ const resolvers = {
     
       if (!currentUser) {
         throw new Error("Not authenticated");
-      }
+      };
     
       const reviewIndex = data.reviews.findIndex(r => r.id === id);
     
       if (reviewIndex === -1) {
         throw new Error("Review not found");
-      }
+      };
     
       const review = data.reviews[reviewIndex];
     
       if (review.userId !== currentUser.id) {
         throw new Error("You can only delete your own reviews");
-      }
+      };
     
       data.reviews.splice(reviewIndex, 1);
-    
       const repository = data.repositories.find(r => r.id === review.repositoryId);
+
       if (repository) {
         const repoReviews = data.reviews.filter(r => r.repositoryId === repository.id);
         repository.reviewCount = repoReviews.length;
         repository.ratingAverage = repoReviews.length
           ? Math.round(repoReviews.reduce((sum, r) => sum + r.rating, 0) / repoReviews.length)
           : 0;
-      }
+      };
     
       saveData();
     
@@ -202,11 +224,11 @@ const resolvers = {
 
     createUser: async (_, { user }) => {
       const { username, password } = user;
-
       const existingUser = data.users.find(u => u.username === username);
+
       if (existingUser) {
         throw new Error("Username is already taken");
-      }
+      };
 
       const passwordHash = await bcrypt.hash(password, 10);
 

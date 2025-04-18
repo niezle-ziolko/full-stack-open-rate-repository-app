@@ -1,16 +1,35 @@
 import { format } from "date-fns";
-import { useQuery } from "@apollo/client";
-import { FlatList, View, Text, ActivityIndicator } from "react-native";
+import { useQuery, useMutation } from "@apollo/client";
+import { FlatList, View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
+import { useNavigate } from "react-router-native";
 
 import styles from "../utils/styles";
 import theme from "../utils/theme";
 import { GET_AUTHORIZED_USER } from "../graphql/queries";
+import { DELETE_REVIEW } from "../graphql/mutations";
 
 const MyReviews = () => {
-  const { data, loading, error } = useQuery(GET_AUTHORIZED_USER, {
+  const navigate = useNavigate();
+  const { data, loading, error, refetch } = useQuery(GET_AUTHORIZED_USER, {
     variables: { includeReviews: true },
     fetchPolicy: "cache-and-network"
   });
+
+  const [deleteReview] = useMutation(DELETE_REVIEW);
+
+  const handleViewRepository = (repositoryId) => {
+    navigate(`/repository/${repositoryId}`);
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    try {
+      await deleteReview({ variables: { id: reviewId } });
+      await refetch();
+    } catch (e) {
+      console.error("Delete mutation failed:", e);
+    };
+  };
+  
 
   if (loading) {
     return (
@@ -23,12 +42,14 @@ const MyReviews = () => {
   };
 
   if (error) {
-    return (
-      <Text style={styles.errorFetch}>Error: {error.message}</Text>
-    );
+    return <Text style={styles.errorFetch}>Error: {error.message}</Text>;
   };
 
   const reviews = data?.me?.reviews?.edges.map(edge => edge.node);
+
+  if (!reviews || reviews.length === 0) {
+    return <Text style={styles.noReviews}>No reviews found.</Text>;
+  };
 
   return (
     <FlatList
@@ -47,9 +68,24 @@ const MyReviews = () => {
                 <Text style={styles.reviewText}>{item.text}</Text>
               </View>
             </View>
+
+            <View style={styles.buttonRow}>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={() => handleViewRepository(item.repository.id)}>
+                  <Text style={styles.buttonText}>View repository</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={[styles.button, styles.buttonDelete]} onPress={() => handleDeleteReview(item.id)}>
+                  <Text style={styles.buttonText}>Delete review</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
           </View>
         </View>
       )}
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
   );
 };
