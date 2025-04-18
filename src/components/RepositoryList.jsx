@@ -1,17 +1,52 @@
-import { useState } from "react";
+import { Component, useState } from "react";
 import { useNavigate } from "react-router-native";
-import { Picker } from "@react-native-picker/picker";
-import { FlatList, ActivityIndicator, Pressable, View } from "react-native";
+import { FlatList, ActivityIndicator, Pressable } from "react-native";
 
-import Text from "./Text";
 import theme from "../utils/theme";
 import styles from "../utils/styles";
 import RepositoryItem from "./RepositoryItem";
 import { ItemSeparator } from "../utils/utils";
 import useRepositories from "../hooks/useRepositories";
+import RepositoryListHeader from "./RepositoryListHeader";
+
+export class RepositoryListContainer extends Component {
+  renderHeader = () => {
+    const { selectedOrder, setSelectedOrder, searchKeyword, setSearchKeyword } = this.props;
+
+    return (
+      <RepositoryListHeader
+        selectedOrder={selectedOrder}
+        setSelectedOrder={setSelectedOrder}
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+      />
+    );
+  };
+
+  render() {
+    const { repositories, navigate } = this.props;
+
+    return (
+      <FlatList
+        data={repositories}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => navigate(`/repository/${item.id}`)}>
+            <RepositoryItem item={item} />
+          </Pressable>
+        )}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={this.renderHeader}
+      />
+    );
+  }
+}
 
 const RepositoryList = () => {
+  const navigate = useNavigate();
   const [selectedOrder, setSelectedOrder] = useState("latest");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [debouncedSearchKeyword] = require("use-debounce").useDebounce(searchKeyword, 500);
 
   const getOrderVariables = () => {
     switch (selectedOrder) {
@@ -21,46 +56,41 @@ const RepositoryList = () => {
         return { orderBy: "RATING_AVERAGE", orderDirection: "ASC" };
       default:
         return { orderBy: "CREATED_AT", orderDirection: "DESC" };
-    }
+    };
   };
 
   const { orderBy, orderDirection } = getOrderVariables();
-  const { repositories, loading, error } = useRepositories({ orderBy, orderDirection });
-  const navigate = useNavigate();
 
-  if (loading) return <ActivityIndicator style={styles.indicator} size="large" color={theme.colors.blue} />;
-  if (error) return <Text>Error: {error.message}</Text>;
+  const { repositories, loading, error } = useRepositories({
+    orderBy,
+    orderDirection,
+    searchKeyword: debouncedSearchKeyword,
+  });
 
-  const renderItem = ({ item }) => (
-    <Pressable onPress={() => navigate(`/repository/${item.id}`)}>
-      <RepositoryItem item={item} />
-    </Pressable>
-  );
+  if (loading) {
+    return (
+      <ActivityIndicator
+        style={styles.indicator}
+        size="large"
+        color={theme.colors.blue}
+      />
+    );
+  };
 
-  const SortPicker = () => (
-    <View style={styles.separator}>
-      <View style={styles.container}>
-        <Picker
-          selectedValue={selectedOrder}
-          onValueChange={(value) => setSelectedOrder(value)}
-          style={styles.picker}
-          dropdownIconColor={theme.colors.blue}
-        >
-          <Picker.Item label="Latest repositories" value="latest" />
-          <Picker.Item label="Highest rated repositories" value="highest" />
-          <Picker.Item label="Lowest rated repositories" value="lowest" />
-        </Picker>
-      </View>
-    </View>
-  );
+  if (error) {
+    return (
+      <Text style={styles.errorFetch}>Error: {error.message}</Text>
+    );
+  };
 
   return (
-    <FlatList
-      data={repositories}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      ListHeaderComponent={SortPicker}
+    <RepositoryListContainer
+      repositories={repositories}
+      selectedOrder={selectedOrder}
+      setSelectedOrder={setSelectedOrder}
+      searchKeyword={searchKeyword}
+      setSearchKeyword={setSearchKeyword}
+      navigate={navigate}
     />
   );
 };

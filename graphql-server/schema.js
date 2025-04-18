@@ -54,12 +54,14 @@ const typeDefs = gql`
   type User {
     id: ID!
     username: String!
+    reviews: ReviewConnection!
   }
 
   type Query {
     repositories(
       orderBy: AllRepositoriesOrderBy = RATING_AVERAGE
       orderDirection: OrderDirection = DESC
+      searchKeyword: String
     ): RepositoryConnection!
     repository(id: ID!): Repository
     me: User
@@ -99,6 +101,7 @@ const typeDefs = gql`
     authenticate(credentials: AuthenticateInput!): AuthenticationPayload
     createReview(review: CreateReviewInput!): CreateReviewPayload
     createUser(user: CreateUserInput!): CreateUserPayload
+    deleteReview(id: ID!): Boolean!
   }
 `;
 

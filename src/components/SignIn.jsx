@@ -73,7 +73,7 @@ const SignIn = () => {
             secureTextEntry
             style={[
               styles.input,
-              touched.password && errors.password && styles.errorInput,
+              touched.password && errors.password && styles.errorInput
             ]}
           />
           {touched.password && errors.password && (

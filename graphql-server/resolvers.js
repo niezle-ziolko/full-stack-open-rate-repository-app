@@ -27,21 +27,32 @@ dotenv.config();
 const resolvers = {
   Query: {
     repositories: (_, args) => {
-      const { orderBy = "RATING_AVERAGE", orderDirection = "DESC" } = args;
+      const {
+        orderBy = "RATING_AVERAGE",
+        orderDirection = "DESC",
+        searchKeyword,
+      } = args;
   
-      let sortedRepositories = [...data.repositories];
+      let filteredRepositories = [...data.repositories];
+  
+      if (searchKeyword) {
+        const keyword = searchKeyword.toLowerCase();
+        filteredRepositories = filteredRepositories.filter((repo) =>
+          repo.fullName.toLowerCase().includes(keyword)
+        );
+      }
   
       if (orderBy === "RATING_AVERAGE") {
-        sortedRepositories.sort((a, b) =>
+        filteredRepositories.sort((a, b) =>
           orderDirection === "ASC"
             ? a.ratingAverage - b.ratingAverage
             : b.ratingAverage - a.ratingAverage
         );
       } else if (orderBy === "CREATED_AT") {
-        sortedRepositories.sort((a, b) => {
+        filteredRepositories.sort((a, b) => {
           const dateA = new Date(normalizeDateString(a.createdAt));
           const dateB = new Date(normalizeDateString(b.createdAt));
-        
+  
           return orderDirection === "ASC"
             ? dateA.getTime() - dateB.getTime()
             : dateB.getTime() - dateA.getTime();
@@ -49,10 +60,25 @@ const resolvers = {
       }
   
       return {
-        edges: sortedRepositories.map((repo) => ({ node: repo })),
+        edges: filteredRepositories.map((repo) => ({ node: repo })),
       };
     },
-  },  
+
+    me: (_, __, context) => {
+      return context.currentUser || null;
+    }
+  },
+
+  User: {
+    reviews: (parent) => {
+      const userId = parent.id;
+      const userReviews = data.reviews
+        .filter((review) => review.userId === userId)
+        .map((review) => ({ node: review }));
+
+      return { edges: userReviews };
+    }
+  },
 
   Repository: {
     reviews: (parent) => {
@@ -137,6 +163,41 @@ const resolvers = {
       saveData();
 
       return { repositoryId: repository.id };
+    },
+
+    deleteReview: (_, { id }, context) => {
+      const currentUser = context.currentUser;
+    
+      if (!currentUser) {
+        throw new Error("Not authenticated");
+      }
+    
+      const reviewIndex = data.reviews.findIndex(r => r.id === id);
+    
+      if (reviewIndex === -1) {
+        throw new Error("Review not found");
+      }
+    
+      const review = data.reviews[reviewIndex];
+    
+      if (review.userId !== currentUser.id) {
+        throw new Error("You can only delete your own reviews");
+      }
+    
+      data.reviews.splice(reviewIndex, 1);
+    
+      const repository = data.repositories.find(r => r.id === review.repositoryId);
+      if (repository) {
+        const repoReviews = data.reviews.filter(r => r.repositoryId === repository.id);
+        repository.reviewCount = repoReviews.length;
+        repository.ratingAverage = repoReviews.length
+          ? Math.round(repoReviews.reduce((sum, r) => sum + r.rating, 0) / repoReviews.length)
+          : 0;
+      }
+    
+      saveData();
+    
+      return true;
     },
 
     createUser: async (_, { user }) => {

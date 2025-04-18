@@ -49,7 +49,10 @@ const SignUp = () => {
               name="username"
               placeholder="Username"
               placeholderTextColor={theme.colors.grey}
-              style={styles.input}
+              style={[
+                styles.input,
+                touched.username && errors.username && styles.errorInput
+              ]}
             />
             {touched.username && errors.username && (
               <Text style={styles.errorText}>{errors.username}</Text>
@@ -60,7 +63,10 @@ const SignUp = () => {
               type="password"
               placeholder="Password"
               placeholderTextColor={theme.colors.grey}
-              style={styles.input}
+              style={[
+                styles.input,
+                touched.password && errors.password && styles.errorInput
+              ]}
             />
             {touched.password && errors.password && (
               <Text style={styles.errorText}>{errors.password}</Text>
@@ -71,7 +77,10 @@ const SignUp = () => {
               type="password"
               placeholder="Confirm password"
               placeholderTextColor={theme.colors.grey}
-              style={styles.input}
+              style={[
+                styles.input,
+                touched.passwordConfirmation && errors.passwordConfirmation && styles.errorInput
+              ]}
             />
             {touched.passwordConfirmation && errors.passwordConfirmation && (
               <Text style={styles.errorText}>{errors.passwordConfirmation}</Text>

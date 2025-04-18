@@ -28,6 +28,10 @@ const AppBar = () => {
               <Text style={styles.headerText}>Create a review</Text>
             </Link>
 
+            <Link to="/my-reviews">
+              <Text style={styles.headerText}>My reviews</Text>
+            </Link>
+
             <SignOut />
           </>
         ) : (

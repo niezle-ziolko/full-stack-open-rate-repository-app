@@ -65,18 +65,24 @@ const CreateReview = () => {
             placeholderTextColor={theme.colors.grey}
             value={values.ownerName}
             onChangeText={handleChange("ownerName")}
-            style={styles.input}
+            style={[
+              styles.input,
+              touched.ownerName && errors.ownerName && styles.errorInput
+            ]}
           />
-          {touched.ownerName && errors.ownerName && <Text style={styles.error}>{errors.ownerName}</Text>}
+          {touched.ownerName && errors.ownerName && <Text style={styles.errorText}>{errors.ownerName}</Text>}
 
           <TextInput
             placeholder="Repository name"
             placeholderTextColor={theme.colors.grey}
             value={values.repositoryName}
             onChangeText={handleChange("repositoryName")}
-            style={styles.input}
+            style={[
+              styles.input,
+              touched.repositoryName && errors.repositoryName && styles.errorInput
+            ]}
           />
-          {touched.repositoryName && errors.repositoryName && <Text style={styles.error}>{errors.repositoryName}</Text>}
+          {touched.repositoryName && errors.repositoryName && <Text style={styles.errorText}>{errors.repositoryName}</Text>}
 
           <TextInput
             placeholder="Rating between 0 and 100"
@@ -84,9 +90,12 @@ const CreateReview = () => {
             value={values.rating}
             onChangeText={handleChange("rating")}
             keyboardType="numeric"
-            style={styles.input}
+            style={[
+              styles.input,
+              touched.rating && errors.rating && styles.errorInput
+            ]}
           />
-          {touched.rating && errors.rating && <Text style={styles.error}>{errors.rating}</Text>}
+          {touched.rating && errors.rating && <Text style={styles.errorText}>{errors.rating}</Text>}
 
           <TextInput
             placeholder="Review (optional)"

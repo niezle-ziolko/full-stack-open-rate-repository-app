@@ -105,7 +105,7 @@ const data = {
       "text": "A bit old-fashioned, but still great.",
       "rating": 95,
       "createdAt": "2024-04-04T13:00:00Z",
-      "userId": "2",
+      "userId": "14041008-7572-40f8-ad3f-f2e42834062d",
       "repositoryId": "rails.rails"
     },
     {
@@ -121,7 +121,7 @@ const data = {
       "text": "Best framework ever!",
       "rating": 100,
       "createdAt": "2025-04-15T11:18:08.448Z",
-      "userId": "1",
+      "userId": "14041008-7572-40f8-ad3f-f2e42834062d",
       "repositoryId": "reduxjs.redux"
     }
   ]

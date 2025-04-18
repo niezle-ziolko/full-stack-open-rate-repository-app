@@ -16,8 +16,21 @@ const SingleRepository = () => {
     fetchPolicy: "cache-and-network"
   });
 
-  if (loading) return <ActivityIndicator style={styles.indicator} size="large" color={theme.colors.blue} />;
-  if (error) return <Text>Error: {error.message}</Text>;
+  if (loading) {
+    return (
+      <ActivityIndicator
+        style={styles.indicator}
+        size="large"
+        color={theme.colors.blue}
+      />
+    );
+  };
+
+  if (error) {
+    return (
+      <Text style={styles.errorFetch}>Error: {error.message}</Text>
+    );
+  };
 
   const repository = data.repository;
   const reviews = repository.reviews?.edges.map(edge => edge.node);

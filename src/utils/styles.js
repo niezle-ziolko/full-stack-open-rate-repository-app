@@ -4,13 +4,13 @@ import theme from "./theme";
 
 const styles = StyleSheet.create({
   container: {
+    gap: theme.numbers.ten,
     padding: theme.numbers.fiveTeen,
-    backgroundColor: theme.colors.white,
-    gap: theme.numbers.ten
+    backgroundColor: theme.colors.white
   },
   box: {
-    flexDirection: theme.flexDirection.row,
-    marginBottom: theme.numbers.ten
+    marginBottom: theme.numbers.ten,
+    flexDirection: theme.flexDirection.row
   },
   header: {
     padding: theme.numbers.fiveTeen,
@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
     flexDirection: theme.flexDirection.row
   },
   scrollContainer: {
-    flexDirection: theme.flexDirection.row,
-    alignItems: theme.align.center
+    alignItems: theme.align.center,
+    flexDirection: theme.flexDirection.row
   },
   tab: {
-    paddingHorizontal: 16,
-    paddingVertical: 8
+    paddingVertical: 8,
+    paddingHorizontal: 16    
   },
   headerText: {
     color: theme.colors.white,
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: theme.colors.primary,
-    fontSize: theme.fontSizes.body,
     fontFamily: theme.fonts.main,
+    fontSize: theme.fontSizes.body,
     fontWeight: theme.fontWeights.normal
   },
   colorTextSecondary: {
@@ -57,42 +57,42 @@ const styles = StyleSheet.create({
     flex: 1
   },
   name: {
-    fontWeight: theme.fontWeights.bold,
-    fontSize: theme.fontSizes.subheading,
     marginBottom: 4,
-    color: theme.colors.primary
+    color: theme.colors.primary,
+    fontWeight: theme.fontWeights.bold,
+    fontSize: theme.fontSizes.subheading
   },
   description: {
-    color: theme.colors.secondary,
-    marginBottom: 6
+    marginBottom: 6,
+    color: theme.colors.secondary
   },
   language: {
-    backgroundColor: theme.colors.blue,
-    fontWeight: theme.fontWeights.bold,
-    alignSelf: "flex-start",
-    color: theme.colors.white,
+    overflow: "hidden",
     paddingVertical: 4,
     paddingHorizontal: 8,
+    alignSelf: "flex-start",
+    color: theme.colors.white,
     borderRadius: theme.numbers.five,
-    overflow: "hidden"
+    backgroundColor: theme.colors.blue,
+    fontWeight: theme.fontWeights.bold
   },
   button: {
-    backgroundColor: theme.colors.blue,
     padding: 12,
-    borderRadius: theme.numbers.five,
     alignItems: theme.align.center,
-    marginTop: theme.numbers.fiveTeen
+    borderRadius: theme.numbers.five,
+    marginTop: theme.numbers.fiveTeen,
+    backgroundColor: theme.colors.blue
   },
   buttonText: {
     color: theme.colors.white,
-    fontWeight: theme.fontWeights.bold,
+    fontSize: theme.numbers.fiveTeen,
     textTransform: theme.display.none,
-    fontSize: theme.numbers.fiveTeen
+    fontWeight: theme.fontWeights.bold
   },
   stats: {
-    flexDirection: theme.flexDirection.row,
+    marginTop: theme.numbers.ten,
     justifyContent: "space-around",
-    marginTop: theme.numbers.ten
+    flexDirection: theme.flexDirection.row
   },
   statItem: {
     alignItems: theme.align.center
@@ -103,53 +103,58 @@ const styles = StyleSheet.create({
   ratingContainer: {
     width: 48,
     height: 48,
+    borderWidth: 2,
     borderRadius: 24,
     borderColor: theme.colors.blue,
-    borderWidth: 2,
     alignItems: theme.align.center,
     justifyContent: theme.align.center,
     marginRight: theme.numbers.fiveTeen
   },
   rating: {
+    fontSize: 16,
     color: theme.colors.blue,
-    fontWeight: theme.fontWeights.bold,
-    fontSize: 16
+    fontWeight: theme.fontWeights.bold
   },
   info: {
     flexShrink: 1
   },
   username: {
-    fontWeight: theme.fontWeights.bold,
-    fontSize: 16
+    fontSize: 16,
+    fontWeight: theme.fontWeights.bold
   },
   date: {
-    color: theme.colors.secondary,
-    marginTop: 2
+    marginTop: 2,
+    color: theme.colors.secondary
   },
   reviewText: {
-    marginTop: theme.numbers.five,
     fontSize: 14,
-    lineHeight: 20
+    lineHeight: 20,
+    marginTop: theme.numbers.five
   },
   form: {
-    padding: 16,
     gap: 12,
+    padding: 16,
     backgroundColor: theme.colors.white
   },
   input: {
-    borderWidth: 1,
-    borderColor: theme.colors.grey,
-    borderRadius: 4,
     padding: 12,
     fontSize: 16,
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: theme.colors.grey
   },
   errorInput: {
     borderColor: theme.colors.red
   },
   errorText: {
-    color: theme.colors.red,
     marginTop: -8,
-    marginLeft: 8
+    marginLeft: 8,
+    color: theme.colors.red
+  },
+  errorFetch: {
+    marginTop: 8,
+    marginLeft: 8,
+    color: theme.colors.primary
   },
   separator: {
     marginBottom: theme.numbers.ten
@@ -161,9 +166,17 @@ const styles = StyleSheet.create({
     height: 35,
     padding: 5,
     borderWidth: 1,
-    borderColor: theme.colors.grey,
+    borderRadius: 5,
     borderStyle: 'solid',
-    borderRadius: 5
+    borderColor: theme.colors.grey
+  },
+  search: {
+    height: 35,
+    padding: 5,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: theme.colors.grey,
+    backgroundColor: theme.colors.white
   }
 });
 
