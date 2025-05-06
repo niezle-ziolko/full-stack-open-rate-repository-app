@@ -2,6 +2,11 @@
 
 The project is a React Native application for managing and interacting with repositories. Users can view a list of repositories with their details, sign in to access certain functionalities, and navigate between various views using tabs. This app is built with Expo and integrates Apollo Client for fetching data from a GraphQL API. The sign-in process uses mutations to authenticate users, and the app is designed to handle different environments and platforms with platform-specific fonts.
 
+## 📜 Certificate of Completion
+With the successful completion of assignments 10.1. through 10.27. of the tenth part of the Full Stack Open course, I received the following certificate from the University of Helsinki:
+
+React Native Module Certificate: [View Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-react-native-2020/en/33a43a06dd7b1ea3d52f403b851661f9)
+
 ## 🗂️ Project Structure
 
 The project is organized following the recommended structure for Full Stack Open submissions:
