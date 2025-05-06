@@ -1,4 +1,4 @@
-# Full Stack Open 2024 - Part 9: Rate Repository App
+# Full Stack Open 2024 - Rate Repository App
 
 The project is a React Native application for managing and interacting with repositories. Users can view a list of repositories with their details, sign in to access certain functionalities, and navigate between various views using tabs. This app is built with Expo and integrates Apollo Client for fetching data from a GraphQL API. The sign-in process uses mutations to authenticate users, and the app is designed to handle different environments and platforms with platform-specific fonts.
 
