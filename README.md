@@ -1650,7 +1650,7 @@ npm run test
 npm run server
 ```
 
-4. Development mode (depending on the system):
+5. Development mode (depending on the system):
 
 ```bash
 npm run android
